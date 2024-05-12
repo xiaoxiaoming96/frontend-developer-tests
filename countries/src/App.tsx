@@ -31,17 +31,21 @@ function App() {
     })
   }, [])
   const onCountryItemClick = useCallback((index: number)=>{
-    setShowUserListIndex(index)
-    if(showUserListIndex !== index) setGenerFilterKey('all')
-  }, [setShowUserListIndex])
+    if(showUserListIndex === index) setShowUserListIndex(-1)
+    else if(showUserListIndex !== index) { 
+      setGenerFilterKey('all')
+      setShowUserListIndex(index)
+    }
+  }, [setShowUserListIndex, setGenerFilterKey, showUserListIndex])
   const onGenderFilterSelect = useCallback((val: string)=>{
     setGenerFilterKey(val)
   }, [setGenerFilterKey])
   return (
     <div className='country-users-box'>
-      {countryList.map((countryInfo: any, index)=> 
-        <div className="country-item">
-          <div onClick={()=>{
+      {countryList.map((countryInfo: any, index)=> {
+        return (
+          <div key={countryInfo?.[0]} className='country-item'>
+          <div className='country-name' onClick={()=>{
             onCountryItemClick(index)
           }}>{countryInfo?.[0]}</div>
           {index === showUserListIndex ? 
@@ -61,7 +65,7 @@ function App() {
                 if(generFilterKey === userInfo.gender) return true
               }).map((userInfo: Record<string, any>)=>{
                 return (
-                  <div className='user-item'>
+                  <div key={`${userInfo.id.name}${userInfo.id.value}${userInfo.name.first}${userInfo.name.last}`} className='user-item'>
                     <div>{`${userInfo.name.first} ${userInfo.name.last}`}</div>
                     <div>{userInfo.gender}</div>
                     <div>{userInfo.location.city}</div>
@@ -71,7 +75,9 @@ function App() {
                 )
               })}
           </div> : null}
-        </div>
+          </div>
+        )
+      } 
       )}
     </div>
   );

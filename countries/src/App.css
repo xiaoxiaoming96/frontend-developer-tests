@@ -47,6 +47,9 @@
   justify-content: flex-start;
   margin-top: 10px;
 }
+.country-name {
+  cursor: pointer;
+}
 .user-item {
   display: flex;
   flex-direction: row;
