@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+.country-users-box {
+  :first-child {
+    margin-top: 0;
+  }
+}
+.country-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+.user-item {
+  display: flex;
+  flex-direction: row;
+  div {
+    margin-left: 10px;
+  }
+  :first-child {
+    margin-left: 0;
+  }
+}
